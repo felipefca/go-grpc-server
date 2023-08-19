@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package schema.currency;
+
+option go_package = "gen/schema";
+
+message Price {
+    //High price for the currency
+    double high = 1 [json_name="high"];
+
+    //Low price for the currency
+    double low = 1 [json_name="low"];
+}
