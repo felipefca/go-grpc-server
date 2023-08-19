@@ -5,7 +5,7 @@ package schema.currency;
 import "google/protobuf/timestamp.proto";
 import "schema/currency/price.proto";
 
-option go_package = "gen/schema";
+option go_package = "gen/proto";
 
 message Currency {
     //Code for comparative currency; e.g. USD
