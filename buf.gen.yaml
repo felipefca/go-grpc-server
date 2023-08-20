@@ -1,8 +1,4 @@
 version: v1
-managed:
-  enable: true
-  go_package_prefix:
-    default: grpc-server/internal/proto/gen
 plugins:
   - plugin: go
     out: internal/proto/gen

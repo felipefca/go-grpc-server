@@ -3,7 +3,7 @@ syntax = "proto3";
 package schema.services;
 
 import "schema/currency/currency.proto";
-import "google/api/annotations.proto"
+import "google/api/annotations.proto";
 
 option go_package = "gen/services";
 
