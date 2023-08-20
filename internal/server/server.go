@@ -36,6 +36,7 @@ type Server interface {
 
 type ServerOptions struct {
 	Context context.Context
+	Client  http.Client
 }
 
 type server struct {
@@ -98,8 +99,7 @@ func (s server) Init() {
 		panic(err)
 	}
 
-	client := http.Client{}
-	provider := provider.NewProvider(client)
+	provider := provider.NewProvider(s.Client)
 
 	services.RegisterCurrencyServiceServer(s.grpcServer, serv.New(provider))
 
@@ -129,6 +129,7 @@ func configureGrpcUI(ctx context.Context, mux *http.ServeMux, port int) {
 	}
 
 	mux.Handle("/ui/", http.StripPrefix("/ui", handler))
+	fmt.Println("grpcUI started - http://127.0.0.1:9071/ui/")
 
 	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", 9071))
 	if err != nil {
@@ -139,6 +140,4 @@ func configureGrpcUI(ctx context.Context, mux *http.ServeMux, port int) {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println("grpcUI started - http://127.0.0.1:9071/ui/")
 }

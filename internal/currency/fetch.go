@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"grpc-server/configs"
 	"grpc-server/internal/appctx"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -27,12 +27,11 @@ func NewCurrencyFetch(client http.Client, config configs.CurrencyFetch) Currency
 }
 
 func (c Currency) GetCotation(ctx context.Context, code string, codeIn string) (*Response, error) {
-	var response Response
 	logger := appctx.FromContext(ctx)
 
 	url := fmt.Sprintf("%s%s-%s", c.Config.UrlLastContation, code, codeIn)
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -48,16 +47,19 @@ func (c Currency) GetCotation(ctx context.Context, code string, codeIn string) (
 
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
+	var response map[string]Response
 	err = json.Unmarshal(body, &response)
 	if err != nil {
 		return nil, err
 	}
 
 	logger.Info("Success to GetCotation")
-	return &response, nil
+	result := response[fmt.Sprintf("%s%s", code, codeIn)]
+
+	return &result, nil
 }

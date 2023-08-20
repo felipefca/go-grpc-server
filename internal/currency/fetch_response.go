@@ -7,4 +7,5 @@ type Response struct {
 	High   string `json:"high"`
 	Low    string `json:"low"`
 	Value  string `json:"bid"`
+	Date   string `json:"create_date"`
 }
