@@ -4,12 +4,13 @@
 // 	protoc        (unknown)
 // source: schema/currency/currency.proto
 
-package gen
+package currency
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	common "grpc-server/internal/proto/gen/schema/common"
 	reflect "reflect"
 	sync "sync"
 )
@@ -33,7 +34,7 @@ type Currency struct {
 	//Currency comparative Name vs currency price name
 	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
 	//Comparative price
-	Price *Price `protobuf:"bytes,4,opt,name=price,proto3" json:"price,omitempty"`
+	Price *common.Price `protobuf:"bytes,4,opt,name=price,proto3" json:"price,omitempty"`
 	//Comparative date
 	Date *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=date,proto3" json:"date,omitempty"`
 }
@@ -91,7 +92,7 @@ func (x *Currency) GetName() string {
 	return ""
 }
 
-func (x *Currency) GetPrice() *Price {
+func (x *Currency) GetPrice() *common.Price {
 	if x != nil {
 		return x.Price
 	}
@@ -125,8 +126,10 @@ var file_schema_currency_currency_proto_rawDesc = []byte{
 	0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x12, 0x2e, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x65, 0x18, 0x05,
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
-	0x52, 0x04, 0x64, 0x61, 0x74, 0x65, 0x42, 0x06, 0x5a, 0x04, 0x67, 0x65, 0x6e, 0x2f, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x52, 0x04, 0x64, 0x61, 0x74, 0x65, 0x42, 0x30, 0x5a, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x73,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x2f,
+	0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -144,7 +147,7 @@ func file_schema_currency_currency_proto_rawDescGZIP() []byte {
 var file_schema_currency_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_schema_currency_currency_proto_goTypes = []interface{}{
 	(*Currency)(nil),              // 0: schema.currency.Currency
-	(*Price)(nil),                 // 1: schema.common.Price
+	(*common.Price)(nil),          // 1: schema.common.Price
 	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
 }
 var file_schema_currency_currency_proto_depIdxs = []int32{
@@ -162,7 +165,6 @@ func file_schema_currency_currency_proto_init() {
 	if File_schema_currency_currency_proto != nil {
 		return
 	}
-	file_schema_common_price_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_schema_currency_currency_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Currency); i {

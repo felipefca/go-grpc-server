@@ -7,10 +7,10 @@
 package services
 
 import (
-	gen "gen/"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	currency "grpc-server/internal/proto/gen/schema/currency"
 	reflect "reflect"
 	sync "sync"
 )
@@ -85,7 +85,7 @@ type CurrentResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	//Response
-	Currency *gen.Currency `protobuf:"bytes,1,opt,name=currency,proto3" json:"currency,omitempty"`
+	Currency *currency.Currency `protobuf:"bytes,1,opt,name=currency,proto3" json:"currency,omitempty"`
 }
 
 func (x *CurrentResponse) Reset() {
@@ -120,7 +120,7 @@ func (*CurrentResponse) Descriptor() ([]byte, []int) {
 	return file_schema_services_service_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CurrentResponse) GetCurrency() *gen.Currency {
+func (x *CurrentResponse) GetCurrency() *currency.Currency {
 	if x != nil {
 		return x.Currency
 	}
@@ -172,9 +172,9 @@ func file_schema_services_service_proto_rawDescGZIP() []byte {
 
 var file_schema_services_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_schema_services_service_proto_goTypes = []interface{}{
-	(*CurrentRequest)(nil),  // 0: schema.services.CurrentRequest
-	(*CurrentResponse)(nil), // 1: schema.services.CurrentResponse
-	(*gen.Currency)(nil),    // 2: schema.currency.Currency
+	(*CurrentRequest)(nil),    // 0: schema.services.CurrentRequest
+	(*CurrentResponse)(nil),   // 1: schema.services.CurrentResponse
+	(*currency.Currency)(nil), // 2: schema.currency.Currency
 }
 var file_schema_services_service_proto_depIdxs = []int32{
 	2, // 0: schema.services.CurrentResponse.currency:type_name -> schema.currency.Currency
