@@ -3,16 +3,6 @@ gRPC com gRPC Gateway: Recebe duas moedas e retorna a cotação do dia
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-gRPC 50051
-
-![image](https://github.com/felipefca/go-grpc-server/assets/21323326/99293654-9f2c-4ff4-b605-5f6a7fb7ae2e)
-
-
-gRPC Gateway 8080
-
-![image](https://github.com/felipefca/go-grpc-server/assets/21323326/ab0dbbf9-9076-4b3c-a265-1e0e5ba71953)
-
-
 <!-- SOBRE O PROJETO -->
 ## Sobre o Projeto
 
@@ -50,9 +40,18 @@ Instruções para execução da aplicação
    ```
 2. exec
    ```sh
-   go run main.go
+   go run cmd/main.go
    ```
 
+### Run
+gRPC 50051
+
+![image](https://github.com/felipefca/go-grpc-server/assets/21323326/99293654-9f2c-4ff4-b605-5f6a7fb7ae2e)
+
+
+gRPC Gateway 8080
+
+![image](https://github.com/felipefca/go-grpc-server/assets/21323326/ab0dbbf9-9076-4b3c-a265-1e0e5ba71953)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
