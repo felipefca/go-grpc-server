@@ -2,16 +2,18 @@ version: v1
 managed:
   enable: true
   go_package_prefix:
-    default: github.com/felipefca/go-grpc-server/pkg/protos/gen/proto
+    default: grpc-server/internal/proto/gen
 plugins:
   - plugin: go
-    out: pkg/protos/gen/proto
-    opt: paths=source_relative
+    out: internal/proto/gen
+    opt:
+      - paths=source_relative
   - plugin: go-grpc
-    out: pkg/protos/gen/proto
-    opt: paths=source_relative
-  # - plugin: grpc-gateway
-  #   out: pkg/protos/gen/proto
-  #   opt:
-  #     - paths=source_relative
-  #     - generate_unbound_methods=true
+    out: internal/proto/gen
+    opt:
+      - paths=source_relative
+  - plugin: grpc-gateway
+    out: internal/proto/gen
+    opt:
+      - paths=source_relative
+      - generate_unbound_methods=true

@@ -3,9 +3,9 @@ syntax = "proto3";
 package schema.currency;
 
 import "google/protobuf/timestamp.proto";
-import "schema/currency/price.proto";
+import "schema/common/price.proto";
 
-option go_package = "gen/proto";
+option go_package = "gen/";
 
 message Currency {
     //Code for comparative currency; e.g. USD
@@ -18,7 +18,7 @@ message Currency {
     string name = 3 [json_name="name"];
 
     //Comparative price
-    schema.currency.Price price = 4 [json_name="price"];
+    schema.common.Price price = 4 [json_name="price"];
 
     //Comparative date
     google.protobuf.Timestamp date = 5 [json_name="date"];

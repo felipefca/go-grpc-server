@@ -5,9 +5,9 @@ package schema.services;
 import "schema/currency/currency.proto";
 import "google/api/annotations.proto"
 
-option go_package = "gen/proto/services";
+option go_package = "gen/services";
 
-message Request {
+message CurrentRequest {
     //Code for comparative currency; e.g. USD
     string code = 1 [json_name="code"];
     
@@ -15,13 +15,13 @@ message Request {
     string codeIn = 2 [json_name="codeIn"];
 }
 
-message Response {
+message CurrentResponse {
     //Response 
     schema.currency.Currency currency = 1 [json_name="currency"];
 }
 
 service CurrencyService {
-    rpc CurrencyService(Request) returns (Response) {
+    rpc GetCurrency(CurrentRequest) returns (CurrentResponse) {
         option (google.api.http) = {
             post: "/v1/comparative-currency"
             body: "*"
