@@ -7,6 +7,7 @@ import (
 	"grpc-server/internal/appctx"
 	ecslogger "grpc-server/internal/logger"
 	"grpc-server/internal/services/provider"
+	"log"
 	"net"
 	"net/http"
 	"os"
@@ -20,6 +21,7 @@ import (
 	"github.com/fullstorydev/grpcui/standalone"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -87,10 +89,10 @@ func (s server) Init() {
 		panic(err)
 	}
 
-	// portGw, err := strconv.Atoi(cfg.Server.PortGw)
-	// if err != nil {
-	// 	panic(err)
-	// }
+	portGw, err := strconv.Atoi(cfg.Server.PortGw)
+	if err != nil {
+		panic(err)
+	}
 
 	reflection.Register(s.grpcServer)
 
@@ -111,6 +113,32 @@ func (s server) Init() {
 		if err := s.grpcServer.Serve(lis); err != nil {
 			panic(err)
 		}
+	}()
+
+	go func() {
+		conn, err := grpc.DialContext(
+			s.Context,
+			fmt.Sprintf(":%d", port),
+			grpc.WithBlock(),
+			grpc.WithTransportCredentials(insecure.NewCredentials()),
+		)
+		if err != nil {
+			panic(err)
+		}
+
+		gmux := runtime.NewServeMux()
+		err = services.RegisterCurrencyServiceHandler(s.Context, gmux, conn)
+		if err != nil {
+			panic(err)
+		}
+
+		gwServer := &http.Server{
+			Addr:    fmt.Sprintf(":%d", portGw),
+			Handler: gmux,
+		}
+
+		fmt.Println("gRPC Gateway server on: ", portGw)
+		log.Fatalln(gwServer.ListenAndServe())
 	}()
 
 	time.Sleep(time.Second)
