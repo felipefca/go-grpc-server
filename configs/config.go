@@ -5,8 +5,9 @@ import "github.com/spf13/viper"
 var cfg *config
 
 type config struct {
-	Log    Log
-	Server Server
+	Log           Log
+	Server        Server
+	CurrencyFetch CurrencyFetch
 }
 
 type Log struct {
@@ -17,6 +18,10 @@ type Log struct {
 type Server struct {
 	Port   string
 	PortGw string
+}
+
+type CurrencyFetch struct {
+	UrlLastContation string
 }
 
 func GetConfig() config {
@@ -41,6 +46,9 @@ func init() {
 		Server: Server{
 			Port:   viper.GetString("PORT"),
 			PortGw: viper.GetString("PORTGW"),
+		},
+		CurrencyFetch: CurrencyFetch{
+			UrlLastContation: viper.GetString("URL_LAST_COTATION"),
 		},
 	}
 }

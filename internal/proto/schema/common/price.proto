@@ -10,4 +10,7 @@ message Price {
 
     //Low price for the currency
     double low = 2 [json_name="low"];
+
+    //Price for the currency
+    double value = 3 [json_name="value"];
 }
